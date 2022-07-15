@@ -18,11 +18,18 @@ class PostController extends AppController
         $this->url = Router::url('/');
     }
     public function insertdata(){
-        $this->connection->insert('post',[
-            "title" => "connection manager3",
-            "category"=> "manager of connection",
-            "date" => date('Y-m-d h:m:s')
-        ]);
+
+        $this->autoRender = false;
+        $id = 11;
+        echo "<pre>";
+        print_r($this->connection->execute("SELECT * FROM post WHERE id = :id",["id"=>$id])->fetch("assoc"));
+        echo "</pre>";
+
+        // $this->connection->insert('post',[
+        //     "title" => "connection manager3",
+        //     "category"=> "manager of connection",
+        //     "date" => date('Y-m-d h:m:s')
+        // ]);
     }
     public function index(){
 
@@ -92,32 +99,32 @@ class PostController extends AppController
     }
     public function update($id){
 
-        // $conn = ConnectionManager::get('default');
-        // $stmt = $conn->execute('UPDATE post SET published = ? WHERE id = ?', [1, 2]);
-
-    // $this->autoRender = false;
-        $this->loadModel('Post');
-        // print_r($this->request->getData());
-        // $post = $this->Post->newEntity();
-        // var_dump($post);
         if($this->request->is('post')){
+            $update = $this->connection->update('post',[
+                        "title" => $this->request->getData('title'),
+                        "category"=> $this->request->getData('category'),
+                        "date" => date('Y-m-d h:m:s')
+                    ],
+                    [
+                        "id"=>$id
+                    ]);
 
-            $post = $this->request->getData();
-
-        // var_dump($post);
-
-            if($this->Post->set($post)){
+            if($update){
                 $this->Flash->success('Post updated Successfully',['key'=> 'message']);
                 return $this->redirect(['action'=>'index']);
             }
             $this->Flash->error(_('Unable to add your post!'));
         }
+
     }
     public function delete($id){
-
-        $this->loadModel('Post');
-        $entity = $this->Post->get($id);
-        $result = $this->Post->delete($entity);
+    // Connection Manager procedure
+        $result = $this->connection->delete("post",[
+            "id"=> $id
+        ]);
+    //     $this->loadModel('Post');
+    //     $entity = $this->Post->get($id);
+    //     $result = $this->Post->delete($entity);
 
         if($result){
             $this->Flash->success('Post Deleted Successfully',['key'=> 'message']);
