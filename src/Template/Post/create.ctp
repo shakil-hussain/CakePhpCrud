@@ -16,7 +16,7 @@
             echo $this->Form->create(NULL,array('url'=>'/post/create','type'=>'file'));
             echo $this->Form->control('title');
             echo $this->Form->control('category');
-            // echo $this->Form->file('image',['accept'=>'image/*']);
+            echo $this->Form->file('image',['accept'=>'image/*']);
             echo $this->Form->input('date',['class'=>'form-control','type'=>'date']);
             echo $this->Form->button('Submit');
             echo $this->Form->end();

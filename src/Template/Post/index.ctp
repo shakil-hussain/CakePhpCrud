@@ -18,6 +18,7 @@
                     <th>SI</th>
                     <th>Title</th>
                     <th>Category</th>
+                    <th>Image</th>
                     <th>Date</th>
                     <th style="width: 200px">Action</th>
                 </thead>
@@ -27,6 +28,15 @@
                         <td><?php echo $item->id ?></td>
                         <td><?php echo $item->title ?></td>
                         <td><?php echo $item->category ?></td>
+
+                        <td><img src="<?= $base_url."webroot/".$item->image ?>" alt="No Image" srcset="" style="width:250px;height:50px"></td>
+
+                        <!-- <td><img src=" -->
+                        <?php
+                        // echo $this->Url->image($item->image)
+                        ?>
+                        <!-- "alt="No Image" srcset="" style="width:250px;height:50px"></td> -->
+
                         <td><?php echo $item->date ?></td>
                         <td> <?php echo $this->Html->link('EDIT',['action'=>'edit/'.$item->id],['class'=>'btn btn-primary'])?>
                             <?php echo $this->Html->link('DELETE',['action'=>'delete/'.$item->id],['class'=>'btn btn-danger p-2'])?></td>
