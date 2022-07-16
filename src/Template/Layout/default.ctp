@@ -35,6 +35,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+<!--    --><?php //$this->Html->script('jquery3.6.js')?>
 </head>
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
@@ -62,5 +63,29 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
+    <script>
+        jQuery.noConflict()(function ($) {
+            $(document).ready(function () {
+                $("#contactForm").submit(function(){
+                    prevent.default()
+                    var formdata = $(this).serialize();
+                    console.log(formdata);
+                });
+            });
+
+
+        });
+    </script>
+<script>
+    function saveContact(){
+        $("#contactForm").preventDefault();
+
+        $name = $("#name").val();
+        $email = $("#email").val();
+        $mesage = $("#mesage").val();
+        console.log($name,$email,$mesage);
+        alert("this is click me button");
+    }
+</script>
 </body>
 </html>
