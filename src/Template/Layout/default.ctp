@@ -47,6 +47,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="top-bar-section">
             <ul class="right">
                 <li><a href="<?= $this->Url->build(["controller"=>"Post","action"=>"index"])?>">Post</a></li>
+                <li><a href="<?= $this->Url->build(["controller"=>"ContactUs","action"=>"index"])?>">Contact Us</a></li>
                 <li>
                     <?php echo $this->Html->link('logout',['controller'=>'Users','action'=>'logout']);?>
                 </li>
@@ -66,8 +67,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <script>
         jQuery.noConflict()(function ($) {
             $(document).ready(function () {
-                $("#contactForm").submit(function(){
-                    prevent.default()
+                $("#contactForm").submit(function(e){
+                    e.preventDefault();
                     var formdata = $(this).serialize();
                     console.log(formdata);
                 });

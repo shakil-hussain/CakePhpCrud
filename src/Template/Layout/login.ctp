@@ -26,28 +26,14 @@
                 echo $this->Form->control('password');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Login')) ?>
+            <?php echo $this->Html->link('SignUp',['action'=>'signup'],['class'=>'btn btn-lg btn-primary'])?>
+
             <?= $this->Form->end() ?>
         </div>
     </div>
 </div>
 
-<div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create() ?>
-    <fieldset>
-        <legend><?= __('Login Now') ?></legend>
-        <?php
-        echo $this->Form->control('username');
-        echo $this->Form->control('password');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
-
-<!--<div class="container clearfix">-->
-<!--    --><?//= $this->fetch('content') ?>
-<!--</div>-->
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
