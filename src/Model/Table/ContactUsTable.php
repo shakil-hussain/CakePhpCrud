@@ -49,7 +49,7 @@ class ContactUsTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 200)
+            ->maxLength('name', 255)
             ->allowEmptyString('name');
 
         $validator
@@ -57,8 +57,8 @@ class ContactUsTable extends Table
             ->allowEmptyString('email');
 
         $validator
-            ->scalar('mesage')
-            ->allowEmptyString('mesage');
+            ->scalar('message')
+            ->allowEmptyString('message');
 
         return $validator;
     }

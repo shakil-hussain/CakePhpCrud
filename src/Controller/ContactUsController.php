@@ -19,7 +19,7 @@ class ContactUsController extends AppController
      */
     public function index()
     {
-        $contactUs = $this->paginate($this->ContactUs);
+        $contactUs = $this->paginate($this->ContactUs,["limit"=>10]);
 
         $this->set(compact('contactUs'));
     }
@@ -47,17 +47,27 @@ class ContactUsController extends AppController
      */
     public function add()
     {
-        $contactUs = $this->ContactUs->newEntity();
+        $contactU = $this->ContactUs->newEntity();
         if ($this->request->is('post')) {
-            $contactUs = $this->ContactUs->patchEntity($contactUs, $this->request->getData());
-            if ($this->ContactUs->save($contactUs)) {
-                $this->Flash->success(__('The contact u has been saved.'));
+            $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
+            if ($this->ContactUs->save($contactU)) {
 
-                return $this->redirect(['action' => 'index']);
+                $resultJ = json_encode(array('result' => array('status' =>'The contact us iInformation has been saved.')));
+                $this->response->type('json');
+                $this->response->body($resultJ);
+                return $this->response;
+
+                // $this->Flash->success(__('The contact us iInformation has been saved.'));
+
+                // return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The contact u could not be saved. Please, try again.'));
+            $resultJ = json_encode(array('result' => array('status' =>'The contact us information could not be saved. Please, try again.')));
+                $this->response->type('json');
+                $this->response->body($resultJ);
+                return $this->response;
+            // $this->Flash->error(__('The contact us information could not be saved. Please, try again.'));
         }
-        $this->set(compact('contactUs'));
+        $this->set(compact('contactU'));
     }
 
     /**

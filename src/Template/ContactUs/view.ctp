@@ -30,7 +30,7 @@
         </tr>
     </table>
     <div class="row">
-        <h4><?= __('Mesage') ?></h4>
-        <?= $this->Text->autoParagraph(h($contactU->mesage)); ?>
+        <h4><?= __('Message') ?></h4>
+        <?= $this->Text->autoParagraph(h($contactU->message)); ?>
     </div>
 </div>

@@ -23,7 +23,7 @@
         <?php
             echo $this->Form->control('name');
             echo $this->Form->control('email');
-            echo $this->Form->control('mesage');
+            echo $this->Form->control('message');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

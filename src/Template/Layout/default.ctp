@@ -46,8 +46,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
         <div class="top-bar-section">
             <ul class="right">
+                <li><a href="<?= $this->Url->build(["controller"=>"Post","action"=>"index",'home'])?>">Home</a></li>
                 <li><a href="<?= $this->Url->build(["controller"=>"Post","action"=>"index"])?>">Post</a></li>
                 <li><a href="<?= $this->Url->build(["controller"=>"ContactUs","action"=>"index"])?>">Contact Us</a></li>
+                <?php
+                    if(!is_null($this->Auth->user('username'))){
+                        echo '<li><a href="">Contact Us</a></li>';
+                    }
+                ?>
+
                 <li>
                     <?php echo $this->Html->link('logout',['controller'=>'Users','action'=>'logout']);?>
                 </li>
@@ -61,7 +68,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <footer>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
     <script>
@@ -70,7 +77,20 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 $("#contactForm").submit(function(e){
                     e.preventDefault();
                     var formdata = $(this).serialize();
-                    console.log(formdata);
+                    var csrf_token = $('[name="_csrfToken"]').val();
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-Token': <?= json_encode($this->request->getParam('_csrfToken')); ?>
+                        },
+                        type: "post",
+                        url: `<?php echo $this->Url->build(["action"=>'add'])?>`,
+                        data: formdata,
+                        dataType:'json',
+                        success: function (response) {
+                            alert(response.result.status);
+                            $("#contactForm").trigger('reset');
+                        }
+                    });
                 });
             });
 

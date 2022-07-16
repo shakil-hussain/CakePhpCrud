@@ -17,7 +17,7 @@
             <?php
                 echo $this->Form->control('name',["id"=>"name"]);
                 echo $this->Form->control('email',["id"=>"email"]);
-                echo $this->Form->control('mesage',["id"=>"mesage"]);
+                echo $this->Form->control('message',["id"=>"message"]);
             ?>
         </fieldset>
         <button type="submit">Submit</button>
