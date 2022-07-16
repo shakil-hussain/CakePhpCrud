@@ -13,9 +13,13 @@
         <div class="col-md-8 mx-auto">
 
             <?php
-            echo $this->Form->create(NULL,array('url'=>'/post/update/'.$info->id));
+            echo $this->Form->create(NULL,array('url'=>'/post/edit/'.$info->id));
             echo $this->Form->input('title',['class'=>'form-control','value'=> $info->title, 'type'=>'text']);
             echo $this->Form->input('category',['class'=>'form-control','value'=> $info->category, 'type'=>'text']);
+            ?>
+            <img src="<?= $base_url.$info->image ?>" width="150" height="150">
+            <?php
+            echo $this->Form->file('image',['class'=>'form-control','value'=> $info->category, 'accept'=>'image/*']);
             echo $this->Form->input('date',['class'=>'form-control','value'=> $info->date, 'type'=>'date']);
             echo $this->Form->button('Submit');
             echo $this->Form->end();

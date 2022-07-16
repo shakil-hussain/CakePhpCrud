@@ -16,7 +16,7 @@ class PostController extends AppController
         parent::initialize();
 
         // project base url
-        $this->url = Router::url('/');
+        $this->url = Router::url('/',true);
 
         // Project database Conection by using Connection Manager
         /*
@@ -92,12 +92,12 @@ class PostController extends AppController
             $uploadPath = "img/posts";
             $image_tmp_name = $this->request->data['image']['tmp_name'];
             $image_name = $this->request->data['image']['name'];
-            move_uploaded_file($image_tmp_name,WWW_ROOT.$uploadPath."/".$image_name);
-
+            if(move_uploaded_file($image_tmp_name,WWW_ROOT.$uploadPath."/".$image_name)){
+                $postIns->image = $uploadPath."/".$image_name;
+            }
             $postIns->title = $form_data['title'];
             $postIns->category = $form_data['category'];
             $postIns->date = date('Y-m-d h:m:s');
-            $postIns->image = $uploadPath."/".$image_name;
 
             if($this->table->save($postIns)){
                 $this->Flash->success('Post Added Successfully',['key'=> 'message']);
@@ -130,17 +130,62 @@ class PostController extends AppController
     }
 
     public function edit($id){
-
+        $this->set("base_url",$this->url);
         $this->loadModel('Post');
         $this->set('info',$this->Post->get($id));
+
+        $old_data = $this->connection->newQuery()->select('*')->from('post')->where(["id"=>$id])->execute()->fetch('assoc');
+
+        if($this->request->is('post')){
+//            $updateImage = "";
+//            if(!is_null($this->request->getData('image'))){
+//                $uploadPath = "img/posts";
+//                $image_tmp_name = $this->request->data['image']['tmp_name'];
+//                $image_name = $this->request->data['image']['name'];
+//                if(move_uploaded_file($image_tmp_name,WWW_ROOT.$uploadPath."/".$image_name)){
+//                    $updateImage = $uploadPath."/".$image_name;
+//                }
+//            }
+            $update = $this->connection->update('post',[
+                "title" => $this->request->getData('title'),
+                "category"=> $this->request->getData('category'),
+//                        "image"=> $updateImage ? $updateImage : $old_data['image'],
+                "date" => date('Y-m-d h:m:s')
+            ],
+                [
+                    "id"=>$id
+                ]);
+
+            if($update){
+
+//                if($updateImage) unlink($old_data['image']);
+
+                $this->Flash->success('Post updated Successfully',['key'=> 'message']);
+                return $this->redirect(['action'=>'index']);
+            }
+            $this->Flash->error(_('Unable to add your post!'));
+            return $this->redirect()->back();
+        }
 
     }
     public function update($id){
 
+        $old_data = $this->connection->newQuery()->select('*')->from('post')->where(["id"=>$id])->execute()->fetch('assoc');
+
         if($this->request->is('post')){
+//            $updateImage = "";
+//            if(!is_null($this->request->getData('image'))){
+//                $uploadPath = "img/posts";
+//                $image_tmp_name = $this->request->data['image']['tmp_name'];
+//                $image_name = $this->request->data['image']['name'];
+//                if(move_uploaded_file($image_tmp_name,WWW_ROOT.$uploadPath."/".$image_name)){
+//                    $updateImage = $uploadPath."/".$image_name;
+//                }
+//            }
             $update = $this->connection->update('post',[
                         "title" => $this->request->getData('title'),
                         "category"=> $this->request->getData('category'),
+//                        "image"=> $updateImage ? $updateImage : $old_data['image'],
                         "date" => date('Y-m-d h:m:s')
                     ],
                     [
@@ -148,10 +193,14 @@ class PostController extends AppController
                     ]);
 
             if($update){
+
+//                if($updateImage) unlink($old_data['image']);
+
                 $this->Flash->success('Post updated Successfully',['key'=> 'message']);
                 return $this->redirect(['action'=>'index']);
             }
             $this->Flash->error(_('Unable to add your post!'));
+            return $this->redirect()->back();
         }
 
     }

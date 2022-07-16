@@ -29,13 +29,13 @@
                         <td><?php echo $item->title ?></td>
                         <td><?php echo $item->category ?></td>
 
-                        <td><img src="<?= $base_url."webroot/".$item->image ?>" alt="No Image" srcset="" style="width:250px;height:50px"></td>
+                        <td><img src="<?= $base_url.$item->image ?>" alt="No Image" srcset="" style="width:250px;height:50px"></td>
 
-                        <!-- <td><img src=" -->
+<!--                         <td><img src="-->
                         <?php
-                        // echo $this->Url->image($item->image)
+//                         echo $this->Url->image($item->image)
                         ?>
-                        <!-- "alt="No Image" srcset="" style="width:250px;height:50px"></td> -->
+<!--                         "alt="No Image" srcset="" style="width:250px;height:50px"></td>-->
 
                         <td><?php echo $item->date ?></td>
                         <td> <?php echo $this->Html->link('EDIT',['action'=>'edit/'.$item->id],['class'=>'btn btn-primary'])?>
