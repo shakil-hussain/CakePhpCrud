@@ -68,6 +68,14 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
+//    user login Authenticated
+    $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/signup', ['controller' => 'Users', 'action' => 'signup']);
+    $routes->connect('/index', ['controller' => 'Users', 'action' => 'index']);
+
+
+
+
     $routes->connect('/test', ['controller' => 'Test', 'action' => 'index']);
 
     /*
