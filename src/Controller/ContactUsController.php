@@ -52,7 +52,10 @@ class ContactUsController extends AppController
             $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
             if ($this->ContactUs->save($contactU)) {
 
-                $resultJ = json_encode(array('result' => array('status' =>'The contact us iInformation has been saved.')));
+                $resultJ = json_encode(array('result' => array(
+                    'status' =>'The contact us information has been saved.',
+                    'test'=>10
+                )));
                 $this->response->type('json');
                 $this->response->body($resultJ);
                 return $this->response;

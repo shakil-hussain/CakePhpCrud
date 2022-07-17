@@ -1,34 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-    </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-</head>
-<body>
 
-<div class="container">
     <div class="row pt-3">
         <div class="col-md-8 mx-auto">
+            <h2>New Post</h2>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <?php echo $this->Html->link('Show List',['action'=>'index'],['class'=>'btn btn-primary float-right mb-3'])?>
+                </div>
+                <div class="panel-body pt-3">
+<!--                    <form action="/post/create" id="postForm" method="post" enctype="multipart/form-data">-->
+                    <?php echo $this->Form->create(NULL,array('url'=>'/post/create','type'=>'file','id'=>'postForm')); ?>
+                    <div class="form-group">
+                        <label class="form-label" id="title">Title</label>
+                        <input type="text" name="title" id="title" required minlength="8" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" id="category">Category</label>
+                        <input type="text" name="category" id="category" required minlength="8" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" id="image">Image</label>
+                        <input type="file" name="image" id="image"  accept="image/*" />
+                    </div>
+                    <div class="form-group">
+                       <button class="btn btn-secoundary btn-md" type="submit">Submit</button>
+                    </div>
 
-            <?php
-            echo $this->Form->create(NULL,array('url'=>'/post/create','type'=>'file'));
-            echo $this->Form->control('title');
-            echo $this->Form->control('category');
-            echo $this->Form->file('image',['accept'=>'image/*']);
-            echo $this->Form->input('date',['class'=>'form-control','type'=>'date']);
-            echo $this->Form->button('Submit');
-            echo $this->Form->end();
-            ?>
-
+                    <?php echo $this->Form->end();?>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
-</body>
-</html>
+    <?php echo $this->Html->script('post',['block'=>'filescripts']);?>

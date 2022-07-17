@@ -18,6 +18,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 mx-auto">
+            <?php echo $this->Flash->render('message');?>
             <?= $this->Form->create() ?>
             <fieldset>
                 <legend><?= __('Login Now') ?></legend>

@@ -28,7 +28,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 
-
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('style.css') ?>
 
@@ -49,12 +48,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <li><a href="<?= $this->Url->build(["controller"=>"Post","action"=>"index",'home'])?>">Home</a></li>
                 <li><a href="<?= $this->Url->build(["controller"=>"Post","action"=>"index"])?>">Post</a></li>
                 <li><a href="<?= $this->Url->build(["controller"=>"ContactUs","action"=>"index"])?>">Contact Us</a></li>
-                <?php
-                    if(!is_null($this->Auth->user('username'))){
-                        echo '<li><a href="">Contact Us</a></li>';
-                    }
-                ?>
-
                 <li>
                     <?php echo $this->Html->link('logout',['controller'=>'Users','action'=>'logout']);?>
                 </li>
@@ -69,8 +62,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
+    <?= $this->fetch('filescripts')?>
     <script>
         jQuery.noConflict()(function ($) {
             $(document).ready(function () {
@@ -88,13 +83,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         dataType:'json',
                         success: function (response) {
                             alert(response.result.status);
-                            $("#contactForm").trigger('reset');
+                            if(response.result.status == 'The contact us information has been saved.'){
+                                $("#contactForm").trigger('reset');
+                            }
                         }
                     });
                 });
             });
-
-
         });
     </script>
 <script>
