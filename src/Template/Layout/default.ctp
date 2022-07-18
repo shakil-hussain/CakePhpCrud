@@ -25,7 +25,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 
     <?= $this->Html->css('base.css') ?>
@@ -60,11 +59,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
     <footer>
     </footer>
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?= $this->fetch('filescripts')?>
     <script>
         jQuery.noConflict()(function ($) {
@@ -90,6 +92,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     });
                 });
             });
+            // $( function() {
+            //     $( "#datepicker" ).datepicker();
+            // });
+
+            $("#deletePostData").click(function (e){
+                alert('done');
+            })
+            // function deletePost(){
+            //     alert("done");
+            // }
+
         });
     </script>
 <script>
@@ -101,6 +114,46 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         $mesage = $("#mesage").val();
         console.log($name,$email,$mesage);
         alert("this is click me button");
+    }
+    function  postDelete(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    jQuery.ajax({
+                        url: `delete/`+id,
+                        type:'get',
+                        dataType: 'json',
+                        success:function (res) {
+                            if(res.result.status == 'success'){
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon:  res.result.status,
+                                    title: res.result.msg,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                window.setTimeout(function(){location.reload()},1500)
+                            }else{
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon:  res.result.status,
+                                    title: res.result.msg,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                window.setTimeout(function(){location.reload()},1500);
+                            }
+                        }
+                    });
+                }
+            });
     }
 </script>
 </body>

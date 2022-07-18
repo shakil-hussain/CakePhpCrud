@@ -1,5 +1,4 @@
-
-    <div class="row pt-3">
+<div class="row pt-3">
         <div class="col-md-8 mx-auto">
             <h2>New Post</h2>
             <div class="panel panel-default">
@@ -21,6 +20,14 @@
                         <label class="form-label" id="image">Image</label>
                         <input type="file" name="image" id="image"  accept="image/*" />
                     </div>
+<!--                    <div class="form-group date">-->
+<!--                        <label class="form-label" id="date">Date</label>-->
+<!--                        <input  type="text" name="date" class="datepicker"  />-->
+<!--                    </div>-->
+
+                    <p>Date: <input type="text" name="date" id="datepicker"></p>
+
+
                     <div class="form-group">
                        <button class="btn btn-secoundary btn-md" type="submit">Submit</button>
                     </div>

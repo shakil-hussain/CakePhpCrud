@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-    </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-</head>
-<body>
 
 <div class="container">
     <div class="row pt-3">
@@ -37,9 +28,13 @@
                                     <td class="text-center"><?php echo ++$key ?></td>
                                     <td class="text-center"><?php echo $item->title ?></td>
                                     <td class="text-center"><?php echo $item->category ?></td>
-                                    <td class="text-center"><img src="<?= $imagepath ?>" alt="No Image" srcset="" class="img img-fluid" style="width:80px;height:80px"></td>
+                                    <td class="text-center"><img src="<?php echo $base_url.$item->image ?>" alt="No Image" srcset="" class="img img-fluid" style="width:80px;height:80px"></td>
                                     <td class="text-center"> <?php echo $this->Html->link('EDIT',['action'=>'edit/'.$item->id],['class'=>'btn btn-primary'])?>
-                                        <?php echo $this->Html->link('DELETE',['action'=>'delete/'.$item->id],['class'=>'btn btn-danger p-2'])?></td>
+                                        <button class="btn btn-lg btn-danger m-1 p-1"  onclick="postDelete(<?php echo $item->id?>)" >Delete data</button>
+                                        <?php
+//                                        echo $this->Html->link('DELETE',['action'=>'delete/'.$item->id],['class'=>'btn btn-danger p-2', "onclick"=>"return confirm('Are you sure?')"])
+                                        ?>
+                                    </td>
                                 </tr>
                             <?php
                             endforeach;
@@ -58,8 +53,3 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
-</body>
-</html>
